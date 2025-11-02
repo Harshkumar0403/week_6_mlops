@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+joblib
+pandas
+dvc[gcs]
+scikit-learn
+pydantic
+google-cloud-storage 
