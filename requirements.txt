@@ -6,3 +6,4 @@ dvc[gcs]
 scikit-learn
 pydantic
 google-cloud-storage 
+opentelemetry-exporter-gcp-trace

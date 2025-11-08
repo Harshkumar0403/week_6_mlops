@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iris-pipeline-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iris-pipeline
+  template:
+    metadata:
+      labels:
+        app: iris-pipeline
+    spec:
+      serviceAccountName: default
+      containers:
+      - name: iris-container
+        image: us-central1-docker.pkg.dev/phonic-axle-473506-u8/week-7/iris_pipeline
+        ports:
+        - containerPort: 8000
+        readinessProbe:
+          httpGet:
+            path: /ready_check
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /live_check
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+

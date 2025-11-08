@@ -28,11 +28,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy source code and GCP key
 # ==========================================================
 COPY app.py .
+COPY deploy.py .
 COPY github-dvc-key.json .
-COPY models ./models
-
-# Set environment variable for GCP
-ENV GOOGLE_APPLICATION_CREDENTIALS=/app/github-dvc-key.json
+COPY models ./models/
 
 # ==========================================================
 # Expose FastAPI port
@@ -42,5 +40,5 @@ EXPOSE 8000
 # ==========================================================
 # Command to run the app
 # ==========================================================
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "deploy:app", "--host", "0.0.0.0", "--port", "8000"]
 
